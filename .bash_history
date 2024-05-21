@@ -65,3 +65,6 @@ clear
 ./vendor/bin/phpunit 
 ./vendor/bin/phpunit 
 exit
+./vendor/bin/phpunit 
+./vendor/bin/phpunit 
+exit
