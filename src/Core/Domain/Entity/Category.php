@@ -48,7 +48,7 @@ class Category
     /**
      * @throws EntityValidationException
      */
-    public function validate()
+    private function validate()
     {
         DomainValidation::notNull($this->name, 'Name is required');
         DomainValidation::strMinLength($this->name, 3, 'Name should not be less than 3');
