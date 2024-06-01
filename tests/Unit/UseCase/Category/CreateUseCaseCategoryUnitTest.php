@@ -1,12 +1,12 @@
 <?php
 
-namespace Tests\Unit\UseCase\Category;
+namespace Unit\UseCase\Category;
 
 use Core\Domain\Entity\Category;
 use Core\Domain\Repository\CategoryRepositoryInterface;
 use Core\UseCase\Category\CreateCategoryUseCase;
-use Core\UseCase\DTO\Category\CategoryCreateInputDTO;
-use Core\UseCase\DTO\Category\CategoryCreateOutputDTO;
+use Core\UseCase\DTO\Category\create\CategoryCreateInputDTO;
+use Core\UseCase\DTO\Category\create\CategoryCreateOutputDTO;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Nonstandard\Uuid;

@@ -25,7 +25,6 @@ class Uuid
     private function ensureIsValida(): void
     {
         if (!RamseyUuid::isValid($this->value)){
-            var_dump($this->value);
             throw new \InvalidArgumentException('Invalid Uuid');
         }
     }

@@ -4,7 +4,8 @@ namespace Core\UseCase\Category;
 
 use Core\Domain\Entity\Category;
 use Core\Domain\Repository\CategoryRepositoryInterface;
-use Core\UseCase\DTO\Category\{CategoryCreateInputDTO, CategoryCreateOutputDTO};
+use Core\UseCase\DTO\Category\create\CategoryCreateInputDTO;
+use Core\UseCase\DTO\Category\create\CategoryCreateOutputDTO;
 
 class CreateCategoryUseCase
 {
