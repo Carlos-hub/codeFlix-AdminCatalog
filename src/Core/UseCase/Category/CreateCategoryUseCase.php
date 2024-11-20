@@ -3,6 +3,7 @@
 namespace Core\UseCase\Category;
 
 use Core\Domain\Entity\Category;
+use Core\Domain\Exception\EntityValidationException;
 use Core\Domain\Repository\CategoryRepositoryInterface;
 use Core\UseCase\DTO\Category\create\CategoryCreateInputDTO;
 use Core\UseCase\DTO\Category\create\CategoryCreateOutputDTO;
@@ -15,6 +16,9 @@ class CreateCategoryUseCase
         $this->repository = $repository;
     }
 
+    /**
+     * @throws EntityValidationException
+     */
     public function execute(CategoryCreateInputDTO $input): CategoryCreateOutputDTO
     {
         $category = new Category(
