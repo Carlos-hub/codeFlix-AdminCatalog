@@ -21,16 +21,15 @@ class ListCategoryUseCaseUnitTest extends TestCase
             'Category Test',
             $id,
         ]);
+        $this->mockEntity->shouldReceive('id')->andReturn($id);
 
         $this->mockRepo = Mockery::mock(stdClass::class,CategoryRepositoryInterface::class);
         $this->mockRepo->shouldReceive('findById')
             ->with($id)
             ->andReturn($this->mockEntity);
-
         $this->mockInputDTO = Mockery::mock(stdClass::class, CategoryInputDTO::class,[
             $id,
         ]);
-
         $useCase = new ListCategoryUseCase($this->mockRepo);
         $response = $useCase->execute($this->mockInputDTO);
 
@@ -46,7 +45,7 @@ class ListCategoryUseCaseUnitTest extends TestCase
         $this->spy->shouldReceive('findById')->with($id)->andReturn($this->mockEntity);
 
         $useCase = new ListCategoryUseCase($this->spy);
-        $response = $useCase->execute($this->mockInputDto);
+        $response = $useCase->execute($this->mockInputDTO);
         $this->spy->shouldHaveReceived('findById');
     }
 
@@ -54,6 +53,6 @@ class ListCategoryUseCaseUnitTest extends TestCase
     {
         Mockery::close();
 
-        parrent::tearDown();
+        parent::tearDown();
     }
 }

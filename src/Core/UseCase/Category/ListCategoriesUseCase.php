@@ -25,6 +25,7 @@ class ListCategoriesUseCase
 
         return new ListCategoriesOutputDTO(
             total: $categories->total(),
+            items: $categories->items(),
         );
     }
 }
