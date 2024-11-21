@@ -25,5 +25,48 @@ class DeleteUseCaseCategoryUnitTest extends TestCase
 
         $this->assertInstanceOf(DeleteCategoryOutputDTO::class, $responseUseCase);
         $this->assertTrue($responseUseCase->success);
+
+        /**
+         * Spies
+         */
+        $this->spyRepo = Mockery::spy(\stdClass::class,CategoryRepositoryInterface::class);
+        $this->spyRepo->shouldReceive('delete')->andReturn(true);
+        $useCase = new  DeleteCategoryUseCase($this->spyRepo);
+        $responseUseCase = $useCase->execute($this->mockInputDTO);
+        $this->spyRepo->shouldHaveReceived('delete');
+
+        $this->tearDown();
+    }
+
+    public function testDeleteCategoryUseCaseFalse()
+    {
+        $uuid = Uuid::uuid4()->toString();
+        $this->mockRepo = Mockery::mock(\stdClass::class,CategoryRepositoryInterface::class);
+        $this->mockRepo->shouldReceive('delete')->andReturn(false);
+
+        $this->mockInputDTO = Mockery::mock(CategoryInputDTO::class,[ $uuid]);
+        $useCase = new  DeleteCategoryUseCase($this->mockRepo);
+        $responseUseCase = $useCase->execute($this->mockInputDTO);
+
+        $this->assertInstanceOf(DeleteCategoryOutputDTO::class, $responseUseCase);
+        $this->assertFalse($responseUseCase->success);
+
+        /**
+         * Spies
+         */
+        $this->spyRepo = Mockery::spy(\stdClass::class,CategoryRepositoryInterface::class);
+        $this->spyRepo->shouldReceive('delete')->andReturn(true);
+        $useCase = new  DeleteCategoryUseCase($this->spyRepo);
+        $responseUseCase = $useCase->execute($this->mockInputDTO);
+        $this->spyRepo->shouldHaveReceived('delete');
+
+        $this->tearDown();
+    }
+
+
+    protected function tearDown(): void
+    {
+        Mockery::close();
+        parent::tearDown();
     }
 }
