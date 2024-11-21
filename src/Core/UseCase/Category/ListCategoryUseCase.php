@@ -21,7 +21,8 @@ class ListCategoryUseCase
             id: $category->id(),
             name: $category->name,
             description: $category->description,
-            isActive: $category->isActive
+            isActive: $category->isActive,
+            createdAt: $category->createdAt(),
         );
     }
 
