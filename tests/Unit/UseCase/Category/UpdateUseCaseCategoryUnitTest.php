@@ -20,6 +20,7 @@ class UpdateUseCaseCategoryUnitTest extends TestCase
         $categoryDesc = "Category Update Description Test";
         $this->mockEntity = Mockery::mock(Category::class,[ $categoryName, $uuid, $categoryDesc ]);
         $this->mockEntity->shouldReceive('id')->andReturn($uuid);
+        $this->mockEntity->shouldReceive('createdAt')->andReturn(date('Y-m-d H:i:s'));
         $this->mockEntity->shouldReceive('update');
 
 
