@@ -2,11 +2,11 @@
 
 namespace Core\Domain\Entity;
 
+use DateTime;
 use Core\Domain\Entity\Traits\MethodsMagicsTraits;
 use Core\Domain\Exception\EntityValidationException;
 use Core\Domain\Validation\DomainValidation;
 use Core\Domain\ValueObject\Uuid;
-use DateTime;
 
 class Category
 {
