@@ -12,6 +12,10 @@ use Mockery;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
+/**
+ * @property ListCategoriesInputDTO|(ListCategoriesInputDTO&Mockery\MockInterface&object&Mockery\LegacyMockInterface)|(Mockery\MockInterface&object&Mockery\LegacyMockInterface)|string[]|(\string[]&Mockery\MockInterface&object&Mockery\LegacyMockInterface) $mockInputDto
+ * @property CategoryRepositoryInterface|(CategoryRepositoryInterface&Mockery\MockInterface&object&Mockery\LegacyMockInterface)|(Mockery\MockInterface&object&Mockery\LegacyMockInterface)|stdClass|(stdClass&Mockery\MockInterface&object&Mockery\LegacyMockInterface) $mockRepo
+ */
 class ListCategoriesUseCaseUnitTest extends TestCase
 {
     public function testListCategoriesEmpty()

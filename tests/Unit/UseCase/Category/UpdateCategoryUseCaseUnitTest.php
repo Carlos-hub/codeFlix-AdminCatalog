@@ -16,8 +16,16 @@ use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use stdClass;
 
+/**
+ * @property EntityCategory|(EntityCategory&Mockery\MockInterface&object&Mockery\LegacyMockInterface)|(Mockery\MockInterface&object&Mockery\LegacyMockInterface)|string[]|(\string[]&Mockery\MockInterface&object&Mockery\LegacyMockInterface) $mockEntity
+ * @property CategoryRepositoryInterface|(CategoryRepositoryInterface&Mockery\MockInterface&object&Mockery\LegacyMockInterface)|(Mockery\MockInterface&object&Mockery\LegacyMockInterface)|stdClass|(stdClass&Mockery\MockInterface&object&Mockery\LegacyMockInterface) $mockRepo
+ * @property UpdateCategoryInputDTO|(UpdateCategoryInputDTO&Mockery\MockInterface&object&Mockery\LegacyMockInterface)|(Mockery\MockInterface&object&Mockery\LegacyMockInterface)|string[]|(\string[]&Mockery\MockInterface&object&Mockery\LegacyMockInterface) $mockInputDto
+ */
 class UpdateCategoryUseCaseUnitTest extends TestCase
 {
+    /**
+     * @throws \Exception
+     */
     public function testRenameCategory()
     {
         $uuid = (string) Uuid::uuid4()->toString();

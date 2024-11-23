@@ -3,6 +3,7 @@
 namespace Tests\Unit\UseCase\Category;
 
 use Core\Domain\Entity\Category;
+use Core\Domain\Exception\EntityValidationException;
 use Core\Domain\Repository\CategoryRepositoryInterface;
 use Core\UseCase\Category\CreateCategoryUseCase;
 
@@ -13,8 +14,16 @@ use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use stdClass;
 
+/**
+ * @property CategoryCreateInputDTO|(CategoryCreateInputDTO&Mockery\MockInterface&object&Mockery\LegacyMockInterface)|(Mockery\MockInterface&object&Mockery\LegacyMockInterface)|string[]|(\string[]&Mockery\MockInterface&object&Mockery\LegacyMockInterface) $mockInputDto
+ * @property CategoryRepositoryInterface|(CategoryRepositoryInterface&Mockery\MockInterface&object&Mockery\LegacyMockInterface)|(Mockery\MockInterface&object&Mockery\LegacyMockInterface)|stdClass|(stdClass&Mockery\MockInterface&object&Mockery\LegacyMockInterface) $mockRepo
+ * @property CategoryRepositoryInterface|(CategoryRepositoryInterface&Mockery\MockInterface&Mockery\LegacyMockInterface)|(Mockery\MockInterface&Mockery\LegacyMockInterface)|stdClass|(stdClass&Mockery\MockInterface&Mockery\LegacyMockInterface) $spy
+ */
 class CreateCategoryUseCaseUnitTest extends TestCase
 {
+    /**
+     * @throws EntityValidationException
+     */
     public function testCreateNewCategory()
     {
         $uuid = (string) Uuid::uuid4()->toString();

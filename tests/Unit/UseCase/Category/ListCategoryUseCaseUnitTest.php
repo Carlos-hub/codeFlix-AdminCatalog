@@ -12,6 +12,12 @@ use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use stdClass;
 
+/**
+ * @property CategoryEntity|(CategoryEntity&Mockery\MockInterface&object&Mockery\LegacyMockInterface)|(Mockery\MockInterface&object&Mockery\LegacyMockInterface)|string[]|(\string[]&Mockery\MockInterface&object&Mockery\LegacyMockInterface) $mockEntity
+ * @property CategoryRepositoryInterface|(CategoryRepositoryInterface&Mockery\MockInterface&object&Mockery\LegacyMockInterface)|(Mockery\MockInterface&object&Mockery\LegacyMockInterface)|stdClass|(stdClass&Mockery\MockInterface&object&Mockery\LegacyMockInterface) $mockRepo
+ * @property CategoryInputDTO|(CategoryInputDTO&Mockery\MockInterface&object&Mockery\LegacyMockInterface)|(Mockery\MockInterface&object&Mockery\LegacyMockInterface)|string[]|(\string[]&Mockery\MockInterface&object&Mockery\LegacyMockInterface) $mockInputDto
+ * @property CategoryRepositoryInterface|(CategoryRepositoryInterface&Mockery\MockInterface&Mockery\LegacyMockInterface)|(Mockery\MockInterface&Mockery\LegacyMockInterface)|stdClass|(stdClass&Mockery\MockInterface&Mockery\LegacyMockInterface) $spy
+ */
 class ListCategoryUseCaseUnitTest extends TestCase
 {
     public function testGetById()
