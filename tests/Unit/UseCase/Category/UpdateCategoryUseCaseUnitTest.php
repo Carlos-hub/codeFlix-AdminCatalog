@@ -5,10 +5,6 @@ namespace Tests\Unit\UseCase\Category;
 use Core\Domain\Entity\Category as EntityCategory;
 use Core\Domain\Repository\CategoryRepositoryInterface;
 use Core\UseCase\Category\UpdateCategoryUseCase;
-use Core\UseCase\DTO\Category\UpdateCategory\{
-    CategoryUpdateInputDto,
-    CategoryUpdateOutputDto
-};
 use Core\UseCase\DTO\Category\update\UpdateCategoryInputDTO;
 use Core\UseCase\DTO\Category\update\UpdateCategoryOutputDTO;
 use Mockery;
