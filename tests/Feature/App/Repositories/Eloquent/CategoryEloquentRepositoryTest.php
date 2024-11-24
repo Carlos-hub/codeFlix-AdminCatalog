@@ -5,13 +5,21 @@ namespace Tests\Feature\App\Repositories\Eloquent;
 use App\Models\Category as CategoryModel;
 use App\Repositories\Eloquent\CategoryEloquentRepository;
 use Core\Domain\Entity\Category as EntityCategory;
+use Core\Domain\Exception\NotFoundException;
 use Core\Domain\Repository\CategoryRepositoryInterface;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class CategoryEloquentRepositoryTest extends TestCase
 {
+    protected CategoryEloquentRepository $repository;
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->repository = new CategoryEloquentRepository(new CategoryModel());
+    }
+
     /**
      * A basic feature test insert.
      *
@@ -19,13 +27,41 @@ class CategoryEloquentRepositoryTest extends TestCase
      */
     public function testInsert()
     {
-        $repository = new CategoryEloquentRepository(new CategoryModel());
 
-        $categoryentity = new EntityCategory( name: 'test', description: 'test_description');
-        $response = $repository->insert($categoryentity);
 
-        $this->assertInstanceOf(CategoryRepositoryInterface::class, $repository);
+        $categoryEntity = new EntityCategory( name: 'test', description: 'test_description');
+        $response = $this->repository->insert($categoryEntity);
+
+        $this->assertInstanceOf(CategoryRepositoryInterface::class, $this->repository);
         $this->assertInstanceOf(EntityCategory::class, $response);
         $this->assertDatabaseHas('categories', ['name' => 'test']);
+    }
+
+    public function testFindById()
+    {
+        $category = CategoryModel::factory()->create();
+        $response = $this->repository->findById($category->id);
+
+        $this->assertInstanceOf(EntityCategory::class, $response);
+        $this->assertEquals($category->id, $response->id());
+    }
+
+
+    public function testFindByIdNotfound()
+    {
+        try{
+            $uuid = (string) Str::uuid();
+            $response = $this->repository->findById($uuid);
+        }catch (\Throwable $e){
+            $this->assertInstanceOf(NotFoundException::class, $e);
+        }
+    }
+
+    public function testFindAll()
+    {
+        $categories = CategoryModel::factory()->count(10)->create();
+
+        $response = $this->repository->findAll();
+        $this->assertCount(count($categories), $response);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Repositories\Eloquent;
 use App\Repositories\Presetters\PaginationPreSetters;
 use Core\Domain\Entity\Category;
 use Core\Domain\Exception\EntityValidationException;
+use Core\Domain\Exception\NotFoundException;
 use Core\Domain\Repository\CategoryRepositoryInterface;
 use Core\Domain\Repository\PaginationInterface;
 use App\Models\Category as CategoryModel;
@@ -35,12 +36,24 @@ class CategoryEloquentRepository implements CategoryRepositoryInterface
 
     public function findAll(string $filter = '', $order = 'DESC'): array
     {
-        return [];
+        $categories =  $this->model
+            ->where(function ($query) use ($filter) {
+                if($filter !== '') {
+                    $query->where('name', 'LIKE', "%{$filter}%");
+                }
+            })
+            ->orderBy('id', $order)
+            ->get();
+
+        return $categories->toArray();
     }
 
     public function findById(string $id): Category
     {
-       return new Category('teste');
+       if(!$category = $this->model->find($id)){
+           throw new NotFoundException('Category not found');
+       }
+       return $this->toCategory($category);
     }
 
     public function paginate(string $filter = '', int $page = 1, $order = 'DESC', int $total = 15): PaginationInterface
@@ -66,7 +79,7 @@ class CategoryEloquentRepository implements CategoryRepositoryInterface
         return new Category(
             name: $object->name,
             id: $object->id,
-            description: $object->description,
+            description: $object->description ?? '',
         );
     }
 }
