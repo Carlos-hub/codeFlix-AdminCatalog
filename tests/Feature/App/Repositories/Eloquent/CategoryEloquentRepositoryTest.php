@@ -108,4 +108,23 @@ class CategoryEloquentRepositoryTest extends TestCase
         $this->assertNotEquals($response->name, $categoryDB->name);
         $this->assertEquals('Updated Name', $response->name);
     }
+
+    public function testDeleteNotFound()
+    {
+        try{
+            $uuid = (string) Str::uuid();
+            $response = $this->repository->delete($uuid);
+        }catch (\Throwable $e){
+            $this->assertInstanceOf(NotFoundException::class, $e);
+        }
+
+    }
+    public function testDelete()
+    {
+        $category = CategoryModel::factory()->create();
+        $response = $this->repository->delete($category->id);
+
+        $this->assertTrue($response);
+
+    }
 }
