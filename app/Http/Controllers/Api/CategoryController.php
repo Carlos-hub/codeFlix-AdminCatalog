@@ -14,7 +14,7 @@ class CategoryController extends Controller
     {
         $response = $listCategoriesUseCase->execute(
             inputDTO: new ListCategoriesInputDTO(
-                filter: $request->get('filter'),
+                filter: $request->get('filter') ?? '',
                 order: $request->get('order', 'DESC'),
                 page: (int) $request->get('page'),
                 totalPerPage: (int) $request->get('totalPerPage', 15)
