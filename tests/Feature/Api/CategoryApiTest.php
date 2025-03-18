@@ -19,7 +19,6 @@ class CategoryApiTest extends TestCase
     public function test_list_empty_categories()
     {
         $response = $this->getJson($this->endpoint);
-        dump($response);
         $response->assertStatus(200);
     }
 }
