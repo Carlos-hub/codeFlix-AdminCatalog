@@ -2,8 +2,10 @@
 
 namespace App\Exceptions;
 
+use Core\Domain\Exception\EntityValidationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Symfony\Component\HttpFoundation\Response;
 
 class Handler extends ExceptionHandler
 {
@@ -35,7 +37,24 @@ class Handler extends ExceptionHandler
     public function register()
     {
         $this->reportable(function (Throwable $e) {
-            //
         });
+    }
+
+    public function render($request, Throwable $exception)
+    {
+        if ($exception instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {
+            return $this->showErrors($exception->getMessage(), Response::HTTP_NOT_FOUND);
+        }
+        if( $exception instanceof EntityValidationException) {
+            return $this->showErrors('Route not found', Response::HTTP_BAD_GATEWAY);
+        }
+        return parent::render($request, $exception);
+    }
+
+    public function showErrors(string $errorMessage, int $errorCode)
+    {
+        return response()->json([
+            'message' => $errorMessage,
+        ], $errorCode);
     }
 }
